@@ -2,14 +2,14 @@ public class ChainOfResponsibility {
 
   public static void main(String[] args) {
 
-    var woman = new F0();
-    var man = new F1();
-    var boy = new F2();
+    var f0 = new FoodSeller();
+    var f1 = new Shipper();
+    var f2 = new Receiver();
 
-    woman.setTargetPerson(man);
-    man.setTargetPerson(boy);
+    f0.setTargetPerson(f1);
+    f1.setTargetPerson(f2);
 
-    woman.act();
+    f0.act("milk tea");
   }
 
 }
@@ -17,7 +17,7 @@ public class ChainOfResponsibility {
 interface IPerson {
   void setTargetPerson(IPerson person);
 
-  void act();
+  void act(String food);
 }
 
 abstract class BasePerson implements IPerson {
@@ -30,37 +30,38 @@ abstract class BasePerson implements IPerson {
   }
 }
 
-class F0 extends BasePerson {
+class FoodSeller extends BasePerson {
+
   @Override
-  public void act() {
+  public void act(String food) {
     if (super.targetPerson != null) {
 
-      System.out.println(String.format("%s %s %s", this.getClass().getSimpleName(), "sell food for",
+      System.out.println(String.format("%s sell %s for %s", this.getClass().getSimpleName(), food,
           super.targetPerson.getClass().getSimpleName()));
 
-      super.targetPerson.act();
+      super.targetPerson.act(food);
     }
   }
 }
 
-class F1 extends BasePerson {
+class Shipper extends BasePerson {
   @Override
-  public void act() {
+  public void act(String food) {
     if (super.targetPerson != null) {
-      System.out.println(String.format("%s %s %s", this.getClass().getSimpleName(), "ship food for",
+      System.out.println(String.format("%s ship %s for %s", this.getClass().getSimpleName(), food,
           super.targetPerson.getClass().getSimpleName()));
-      super.targetPerson.act();
+      super.targetPerson.act(food);
     }
   }
 }
 
-class F2 extends BasePerson {
+class Receiver extends BasePerson {
   @Override
-  public void act() {
+  public void act(String food) {
     if (super.targetPerson != null) {
-      System.out.println(String.format("%s %s %s", this.getClass().getSimpleName(), "eat food with",
+      System.out.println(String.format("%s eat %s with %s", this.getClass().getSimpleName(), food,
           super.targetPerson.getClass().getSimpleName()));
-      super.targetPerson.act();
+      super.targetPerson.act(food);
     }
   }
 }
