@@ -34,11 +34,10 @@ class FoodSeller extends BasePerson {
 
   @Override
   public void act(String food) {
+
+    System.out.println(String.format("%s sell %s", this.getClass().getSimpleName(), food));
+
     if (super.targetPerson != null) {
-
-      System.out.println(String.format("%s sell %s for %s", this.getClass().getSimpleName(), food,
-          super.targetPerson.getClass().getSimpleName()));
-
       super.targetPerson.act(food);
     }
   }
@@ -47,9 +46,8 @@ class FoodSeller extends BasePerson {
 class Shipper extends BasePerson {
   @Override
   public void act(String food) {
+    System.out.println(String.format("%s ship %s", this.getClass().getSimpleName(), food));
     if (super.targetPerson != null) {
-      System.out.println(String.format("%s ship %s for %s", this.getClass().getSimpleName(), food,
-          super.targetPerson.getClass().getSimpleName()));
       super.targetPerson.act(food);
     }
   }
@@ -58,9 +56,8 @@ class Shipper extends BasePerson {
 class Receiver extends BasePerson {
   @Override
   public void act(String food) {
+    System.out.println(String.format("%s eat %s", this.getClass().getSimpleName(), food));
     if (super.targetPerson != null) {
-      System.out.println(String.format("%s eat %s with %s", this.getClass().getSimpleName(), food,
-          super.targetPerson.getClass().getSimpleName()));
       super.targetPerson.act(food);
     }
   }
